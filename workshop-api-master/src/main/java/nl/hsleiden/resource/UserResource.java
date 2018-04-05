@@ -17,7 +17,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import nl.hsleiden.View;
-import nl.hsleiden.model.User;
+import nl.hsleiden.model.Follower;
 import nl.hsleiden.service.UserService;
 
 /**
@@ -42,7 +42,7 @@ public class UserResource
     @GET
     @JsonView(View.Public.class)
     @RolesAllowed("GUEST")
-    public Collection<User> retrieveAll()
+    public Collection<Follower> retrieveAll()
     {
         return service.getAll();
     }
@@ -51,7 +51,7 @@ public class UserResource
     @Path("/{id}")
     @JsonView(View.Public.class)
     @RolesAllowed("GUEST")
-    public User retrieve(@PathParam("id") int id)
+    public Follower retrieve(@PathParam("id") int id)
     {
         return service.get(id);
     }
@@ -59,9 +59,9 @@ public class UserResource
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
-    public void create(@Valid User user)
+    public void create(@Valid Follower follower)
     {
-        service.add(user);
+        service.add(follower);
     }
     
     @PUT
@@ -69,9 +69,9 @@ public class UserResource
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
     @RolesAllowed("GUEST")
-    public void update(@PathParam("id") int id, @Auth User authenticator, User user)
+    public void update(@PathParam("id") int id, @Auth Follower authenticator, Follower follower)
     {
-        service.update(authenticator, id, user);
+        service.update(authenticator, id, follower);
     }
     
     @DELETE
@@ -85,7 +85,7 @@ public class UserResource
     @GET
     @Path("/me")
     @JsonView(View.Private.class)
-    public User authenticate(@Auth User authenticator)
+    public Follower authenticate(@Auth Follower authenticator)
     {
         return authenticator;
     }

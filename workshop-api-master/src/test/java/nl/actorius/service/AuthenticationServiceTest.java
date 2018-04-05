@@ -4,8 +4,8 @@ import nl.hsleiden.service.AuthenticationService;
 import java.util.Optional;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.basic.BasicCredentials;
-import nl.hsleiden.model.User;
-import nl.hsleiden.persistence.UserDAO;
+import nl.hsleiden.model.Follower;
+import nl.hsleiden.persistence.FollowerDAO;
 import org.junit.After;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -22,9 +22,9 @@ public class AuthenticationServiceTest
     
     public AuthenticationServiceTest()
     {
-        UserDAO userDAO = new UserDAO();
+        FollowerDAO followerDAO = new FollowerDAO();
         
-        subject = new AuthenticationService(userDAO);
+        subject = new AuthenticationService(followerDAO);
     }
     
     @Before
@@ -44,7 +44,7 @@ public class AuthenticationServiceTest
     {
         BasicCredentials credentials = new BasicCredentials("second@user.com", "second");
         
-        Optional<User> actual = subject.authenticate(credentials);
+        Optional<Follower> actual = subject.authenticate(credentials);
         
         assertTrue(actual.isPresent());
     }
@@ -54,7 +54,7 @@ public class AuthenticationServiceTest
     {
         BasicCredentials credentials = new BasicCredentials("second@user.net", "second");
         
-        Optional<User> actual = subject.authenticate(credentials);
+        Optional<Follower> actual = subject.authenticate(credentials);
         
         assertFalse(actual.isPresent());
     }
@@ -64,7 +64,7 @@ public class AuthenticationServiceTest
     {
         BasicCredentials credentials = new BasicCredentials("second@user.com", "first");
         
-        Optional<User> actual = subject.authenticate(credentials);
+        Optional<Follower> actual = subject.authenticate(credentials);
         
         assertFalse(actual.isPresent());
     }
@@ -72,10 +72,10 @@ public class AuthenticationServiceTest
     @Test
     public void testAuthorizeSuccess()
     {
-        User user = new User();
-        user.setRoles(new String[] { "GUEST", "ADMIN" });
+        Follower follower = new Follower();
+        follower.setRoles(new String[] { "GUEST", "ADMIN" });
         
-        boolean actual = subject.authorize(user, "ADMIN");
+        boolean actual = subject.authorize(follower, "ADMIN");
         
         assertTrue(actual);
     }
@@ -83,10 +83,10 @@ public class AuthenticationServiceTest
     @Test
     public void testAuthorizeFailed()
     {
-        User user = new User();
-        user.setRoles(new String[] { "GUEST" });
+        Follower follower = new Follower();
+        follower.setRoles(new String[] { "GUEST" });
         
-        boolean actual = subject.authorize(user, "ADMIN");
+        boolean actual = subject.authorize(follower, "ADMIN");
         
         assertFalse(actual);
     }

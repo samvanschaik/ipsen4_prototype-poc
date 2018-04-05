@@ -44,17 +44,9 @@ public class FollowerResource {
     @Path("/{totalFollower}")
     @JsonView(View.Public.class)
     @RolesAllowed("GUEST")
-    public Follower getTotalFollowers(@PathParam("id") int id)
+    public Follower getTotalFollowers(@PathParam("totalFollower") int id)
     {
         return service.get(id);
-    }
-
-    @GET
-    @JsonView(View.Public.class)
-    @RolesAllowed("GUEST")
-    public Collection<Follower> retrieveAll()
-    {
-        return service.getAll();
     }
 
 }

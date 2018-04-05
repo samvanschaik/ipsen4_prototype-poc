@@ -2,10 +2,10 @@ package nl.hsleiden.model;
 
 public class Follower {
 
-    int totalFollowers = 54200;
+    int totalFollowers;
+    int id;
 
-    public Follower(int totalFollowers) {
-        this.totalFollowers = totalFollowers;
+    public Follower() {
     }
 
     public int getTotalFollowers() {
@@ -16,7 +16,13 @@ public class Follower {
         this.totalFollowers = totalFollowers;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }
 
 

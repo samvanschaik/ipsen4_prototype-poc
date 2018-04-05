@@ -3,6 +3,7 @@ package nl.hsleiden.service;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.NotFoundException;
 import nl.hsleiden.model.Follower;
+import nl.hsleiden.model.User;
 
 /**
  *
@@ -21,9 +22,9 @@ public class BaseService<T>
         return model;
     }
     
-    public void assertSelf(Follower follower1, Follower follower2)
+    public void assertSelf(User user1, User user2)
     {
-        if (!follower1.equals(follower2))
+        if (!user1.equals(user2))
         {
             throw new ForbiddenException();
         }

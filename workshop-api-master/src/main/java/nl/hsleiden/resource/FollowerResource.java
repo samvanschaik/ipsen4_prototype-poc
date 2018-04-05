@@ -40,14 +40,14 @@ public class FollowerResource {
     }
 
 
-//    @GET
-//    @Path("/{totalFollower}")
-//    @JsonView(View.Public.class)
-//    @RolesAllowed("GUEST")
-//    public User getTotalFollowers(@PathParam("id") int id)
-//    {
-//        return service.get(id);
-//    }
+    @GET
+    @Path("/{totalFollower}")
+    @JsonView(View.Public.class)
+    @RolesAllowed("GUEST")
+    public User getTotalFollowers(@PathParam("id") int id)
+    {
+        return service.get(id);
+    }
 
 
     @GET

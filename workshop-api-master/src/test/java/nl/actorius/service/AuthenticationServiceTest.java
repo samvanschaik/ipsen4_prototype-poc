@@ -1,5 +1,7 @@
 package nl.actorius.service;
 
+import nl.hsleiden.model.User;
+import nl.hsleiden.persistence.UserDAO;
 import nl.hsleiden.service.AuthenticationService;
 import java.util.Optional;
 import io.dropwizard.auth.AuthenticationException;
@@ -22,9 +24,9 @@ public class AuthenticationServiceTest
     
     public AuthenticationServiceTest()
     {
-        FollowerDAO followerDAO = new FollowerDAO();
+        UserDAO userDAO = new UserDAO();
         
-        subject = new AuthenticationService(followerDAO);
+        subject = new AuthenticationService(userDAO);
     }
     
     @Before
@@ -44,7 +46,7 @@ public class AuthenticationServiceTest
     {
         BasicCredentials credentials = new BasicCredentials("second@user.com", "second");
         
-        Optional<Follower> actual = subject.authenticate(credentials);
+        Optional<User> actual = subject.authenticate(credentials);
         
         assertTrue(actual.isPresent());
     }
@@ -54,7 +56,7 @@ public class AuthenticationServiceTest
     {
         BasicCredentials credentials = new BasicCredentials("second@user.net", "second");
         
-        Optional<Follower> actual = subject.authenticate(credentials);
+        Optional<User> actual = subject.authenticate(credentials);
         
         assertFalse(actual.isPresent());
     }
@@ -64,7 +66,7 @@ public class AuthenticationServiceTest
     {
         BasicCredentials credentials = new BasicCredentials("second@user.com", "first");
         
-        Optional<Follower> actual = subject.authenticate(credentials);
+        Optional<User> actual = subject.authenticate(credentials);
         
         assertFalse(actual.isPresent());
     }
@@ -72,10 +74,10 @@ public class AuthenticationServiceTest
     @Test
     public void testAuthorizeSuccess()
     {
-        Follower follower = new Follower();
-        follower.setRoles(new String[] { "GUEST", "ADMIN" });
+        User user = new User();
+        user.setRoles(new String[] { "GUEST", "ADMIN" });
         
-        boolean actual = subject.authorize(follower, "ADMIN");
+        boolean actual = subject.authorize(user, "ADMIN");
         
         assertTrue(actual);
     }
@@ -83,10 +85,10 @@ public class AuthenticationServiceTest
     @Test
     public void testAuthorizeFailed()
     {
-        Follower follower = new Follower();
-        follower.setRoles(new String[] { "GUEST" });
+        User user = new User();
+        user.setRoles(new String[] { "GUEST" });
         
-        boolean actual = subject.authorize(follower, "ADMIN");
+        boolean actual = subject.authorize(user, "ADMIN");
         
         assertFalse(actual);
     }

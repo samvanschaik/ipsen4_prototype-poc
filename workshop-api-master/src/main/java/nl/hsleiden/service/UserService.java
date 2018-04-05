@@ -4,59 +4,61 @@ import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import nl.hsleiden.model.Follower;
+import nl.hsleiden.model.User;
 import nl.hsleiden.persistence.FollowerDAO;
+import nl.hsleiden.persistence.UserDAO;
 
 /**
  *
  * @author Peter van Vliet
  */
 @Singleton
-public class UserService extends BaseService<Follower>
+public class UserService extends BaseService<User>
 {
-    private final FollowerDAO dao;
+    private final UserDAO dao;
     
     @Inject
-    public UserService(FollowerDAO dao)
+    public UserService(UserDAO dao)
     {
         this.dao = dao;
     }
     
-    public Collection<Follower> getAll()
+    public Collection<User> getAll()
     {
         return dao.getAll();
     }
     
-    public Follower get(int id)
+    public User get(int id)
     {
         return requireResult(dao.get(id));
     }
     
-    public void add(Follower follower)
+    public void add(User user)
     {
-        follower.setRoles(new String[] { "GUEST" });
+        user.setRoles(new String[] { "GUEST" });
         
-        dao.add(follower);
+        dao.add(user);
     }
     
-    public void update(Follower authenticator, int id, Follower follower)
+    public void update(User authenticator, int id, User user)
     {
         // Controleren of deze gebruiker wel bestaat
-        Follower oldFollower = get(id);
+        User oldUser = get(id);
         
         if (!authenticator.hasRole("ADMIN"))
         {
             // Vaststellen dat de geauthenticeerde gebruiker
             // zichzelf aan het aanpassen is
-            assertSelf(authenticator, oldFollower);
+            assertSelf(authenticator, oldUser);
         }
         
-        dao.update(id, follower);
+        dao.update(id, user);
     }
     
     public void delete(int id)
     {
         // Controleren of deze gebruiker wel bestaat
-        Follower follower = get(id);
+        User user = get(id);
         
         dao.delete(id);
     }

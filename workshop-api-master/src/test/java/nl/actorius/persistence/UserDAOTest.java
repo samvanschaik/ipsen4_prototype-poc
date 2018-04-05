@@ -1,7 +1,9 @@
 package nl.actorius.persistence;
 
+import nl.hsleiden.model.User;
 import nl.hsleiden.persistence.FollowerDAO;
 import nl.hsleiden.model.Follower;
+import nl.hsleiden.persistence.UserDAO;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,16 +15,16 @@ import org.junit.Test;
  *
  * @author Peter van Vliet <peter@actorius.nl>
  */
-public class FollowerDAOTest
+public class UserDAOTest
 {
-    private FollowerDAO subject;
+    private UserDAO subject;
     
     @Before
     public void setUp()
     {
         System.out.println("Set up");
         
-        subject = new FollowerDAO();
+        subject = new UserDAO();
     }
     
     @After
@@ -39,7 +41,7 @@ public class FollowerDAOTest
         System.out.println("test get success");
         
         String expectedName = "Second user";
-        Follower actual = subject.get(1);
+        User actual = subject.get(1);
         
         assertNotNull(actual);
         assertEquals(expectedName, actual.getName());
@@ -50,7 +52,7 @@ public class FollowerDAOTest
     {
         System.out.println("Test get failed");
         
-        Follower actual = subject.get(6);
+        User actual = subject.get(6);
         
         assertNull(actual);
     }
@@ -61,7 +63,7 @@ public class FollowerDAOTest
         System.out.println("Test by email address");
         
         String expectedName = "First user";
-        Follower actual = subject.getByEmailAddress("first@user.com");
+        User actual = subject.getByEmailAddress("first@user.com");
         
         assertNotNull(actual);
         assertEquals(expectedName, actual.getName());
@@ -72,10 +74,10 @@ public class FollowerDAOTest
     {
         System.out.println("Test add");
         
-        Follower follower = new Follower();
-        follower.setFullName("Peter van Vliet");
+        User user = new User();
+        user.setFullName("Peter van Vliet");
         
-        subject.add(follower);
+        subject.add(user);
         
         int expectedSize = 3;
         int actualSize = subject.getAll().size();

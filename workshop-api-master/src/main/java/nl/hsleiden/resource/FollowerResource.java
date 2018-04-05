@@ -49,6 +49,13 @@ public class FollowerResource {
         return service.get(id);
     }
 
+    @GET
+    @JsonView(View.Public.class)
+    @RolesAllowed("GUEST")
+    public Collection<Follower> retrieveAll()
+    {
+        return service.getAll();
+    }
 
     @GET
     @Path("/me")

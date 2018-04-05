@@ -11,7 +11,7 @@ import nl.hsleiden.model.User;
  * @author Peter van Vliet
  */
 @Singleton
-public class UserDAO
+public class UserDAO //Dit is een DAO
 {
     private final List<User> users;
     

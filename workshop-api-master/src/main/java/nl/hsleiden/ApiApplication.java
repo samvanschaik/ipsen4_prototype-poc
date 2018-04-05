@@ -23,12 +23,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Peter van Vliet
+ * @author Peter van Vliet & TreeSoftware
  */
 public class ApiApplication extends Application<ApiConfiguration>
 {
     private final Logger logger = LoggerFactory.getLogger(ApiApplication.class);
-    
+    //little bit o
     private ConfiguredBundle assetsBundle;
     private GuiceBundle guiceBundle;
     

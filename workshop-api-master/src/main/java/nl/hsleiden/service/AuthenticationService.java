@@ -13,39 +13,42 @@ import io.dropwizard.auth.basic.BasicCredentials;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import nl.hsleiden.model.Follower;
+import nl.hsleiden.model.User;
 import nl.hsleiden.persistence.FollowerDAO;
+import nl.hsleiden.persistence.UserDAO;
 
 /**
  *
  * @author Peter van Vliet
  */
 @Singleton
-public class AuthenticationService implements Authenticator<BasicCredentials, Follower>, Authorizer<Follower>
+public class AuthenticationService implements Authenticator<BasicCredentials, User>, Authorizer<User>
 {
-    private final FollowerDAO followerDAO;
-    
+    private final UserDAO userDAO;
+
     @Inject
-    public AuthenticationService(FollowerDAO followerDAO)
+    public AuthenticationService(UserDAO userDAO)
     {
-        this.followerDAO = followerDAO;
+        this.userDAO = userDAO;
     }
 
     @Override
-    public Optional<Follower> authenticate(BasicCredentials credentials) throws AuthenticationException
+    public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException
     {
-        Follower follower = followerDAO.getByEmailAddress(credentials.getUsername());
-        
-        if (follower != null && follower.getPassword().equals(credentials.getPassword()))
+        User user = userDAO.getByEmailAddress(credentials.getUsername());
+
+
+        if (user != null && user.getPassword().equals(credentials.getPassword()))
         {
-            return Optional.of(follower);
+            return Optional.of(user);
         }
-        
+
         return Optional.empty();
     }
 
     @Override
-    public boolean authorize(Follower follower, String roleName)
+    public boolean authorize(User user, String roleName)
     {
-        return follower.hasRole(roleName);
+        return user.hasRole(roleName);
     }
 }

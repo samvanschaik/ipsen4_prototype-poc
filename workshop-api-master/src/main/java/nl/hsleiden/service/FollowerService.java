@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 import java.util.Collection;
 
 @Singleton
-public class FollowerService {
+public class FollowerService extends BaseService<Follower>{
 
     private final FollowerDAO dao;
 
@@ -19,6 +19,11 @@ public class FollowerService {
     public FollowerService(FollowerDAO dao)
     {
         this.dao = dao;
+    }
+
+    public Follower get(int id)
+    {
+        return requireResult(dao.get(id));
     }
 
 

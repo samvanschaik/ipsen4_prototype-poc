@@ -44,17 +44,10 @@ public class FollowerResource {
     @Path("/{totalFollower}")
     @JsonView(View.Public.class)
     @RolesAllowed("GUEST")
-    public User getTotalFollowers(@PathParam("id") int id)
+    public Follower getTotalFollowers(@PathParam("id") int id)
     {
         return service.get(id);
     }
 
 
-    @GET
-    @Path("/me")
-    @JsonView(View.Private.class)
-    public User authenticate(@Auth User authenticator)
-    {
-        return authenticator;
-    }
 }

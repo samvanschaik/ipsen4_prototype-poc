@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.inject.Singleton;
-import nl.hsleiden.model.Follower;
+import nl.hsleiden.model.User;
+import nl.hsleiden.model.User;
 
 /**
  *
@@ -13,41 +14,41 @@ import nl.hsleiden.model.Follower;
 @Singleton
 public class UserDAO //Dit is een DAO
 {
-    private final List<Follower> followers;
+    private final List<User> users;
     
     public UserDAO()
     {
-        Follower follower1 = new Follower();
-        follower1.setFullName("First user");
-        follower1.setPostcode("1234AB");
-        follower1.setStreetnumber("12");
-        follower1.setEmailAddress("first@user.com");
-        follower1.setPassword("first");
-        follower1.setRoles(new String[] { "GUEST", "ADMIN" });
-        
-        Follower follower2 = new Follower();
-        follower2.setFullName("Second user");
-        follower2.setPostcode("9876ZY");
-        follower2.setStreetnumber("98");
-        follower2.setEmailAddress("second@user.com");
-        follower2.setPassword("second");
-        follower2.setRoles(new String[] { "GUEST" });
-        
-        followers = new ArrayList<>();
-        followers.add(follower1);
-        followers.add(follower2);
+        User user1 = new User();
+        user1.setFullName("First user");
+        user1.setPostcode("1234AB");
+        user1.setStreetnumber("12");
+        user1.setEmailAddress("first@user.com");
+        user1.setPassword("first");
+        user1.setRoles(new String[] { "GUEST", "ADMIN" });
+
+        User user2 = new User();
+        user2.setFullName("Second user");
+        user2.setPostcode("9876ZY");
+        user2.setStreetnumber("98");
+        user2.setEmailAddress("second@user.com");
+        user2.setPassword("second");
+        user2.setRoles(new String[] { "GUEST" });
+
+        users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
     }
     
-    public List<Follower> getAll()
+    public List<User> getAll()
     {
-        return followers;
+        return users;
     }
     
-    public Follower get(int id)
+    public User get(int id)
     {
         try
         {
-            return followers.get(id);
+            return users.get(id);
         }
         catch(IndexOutOfBoundsException exception)
         {
@@ -55,9 +56,9 @@ public class UserDAO //Dit is een DAO
         }
     }
     
-    public Follower getByEmailAddress(String emailAddress)
+    public User getByEmailAddress(String emailAddress)
     {
-        Optional<Follower> result = followers.stream()
+        Optional<User> result = users.stream()
             .filter(user -> user.getEmailAddress().equals(emailAddress))
             .findAny();
         
@@ -66,18 +67,18 @@ public class UserDAO //Dit is een DAO
             : null;
     }
     
-    public void add(Follower follower)
+    public void add(User user)
     {
-        followers.add(follower);
+        users.add(user);
     }
     
-    public void update(int id, Follower follower)
+    public void update(int id, User user)
     {
-        followers.set(id, follower);
+        users.set(id, user);
     }
     
     public void delete(int id)
     {
-        followers.remove(id);
+        users.remove(id);
     }
 }

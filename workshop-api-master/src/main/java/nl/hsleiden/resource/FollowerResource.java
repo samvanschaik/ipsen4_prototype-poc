@@ -41,10 +41,10 @@ public class FollowerResource {
 
 
     @GET
-    @Path("/{totalFollower}")
+    @Path("/{totalFollowers}")
     @JsonView(View.Public.class)
     @RolesAllowed("GUEST")
-    public Follower getTotalFollowers(@PathParam("totalFollower") int id)
+    public Follower getTotalFollowers(@PathParam("totalFollowers") int id)
     {
         return service.get(id);
     }

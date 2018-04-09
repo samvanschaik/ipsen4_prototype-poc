@@ -10,7 +10,6 @@ public class Follower {
     @JsonView(View.Public.class)
     int totalFollowers;
 
-
     public Follower() {
     }
 

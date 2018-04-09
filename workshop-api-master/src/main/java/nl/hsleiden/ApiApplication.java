@@ -17,22 +17,21 @@ import javax.servlet.DispatcherType;
 import nl.hsleiden.model.Follower;
 import nl.hsleiden.model.User;
 import nl.hsleiden.service.AuthenticationService;
+import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author Peter van Vliet & TreeSoftware
- */
 public class ApiApplication extends Application<ApiConfiguration>
 {
     private final Logger logger = LoggerFactory.getLogger(ApiApplication.class);
-    //little bit o
+
     private ConfiguredBundle assetsBundle;
     private GuiceBundle guiceBundle;
-    
+
+
+
     private String name;
     
     @Override
@@ -49,6 +48,7 @@ public class ApiApplication extends Application<ApiConfiguration>
         
         bootstrap.addBundle(assetsBundle);
         bootstrap.addBundle(guiceBundle);
+
     }
     
     @Override
@@ -57,9 +57,11 @@ public class ApiApplication extends Application<ApiConfiguration>
         name = configuration.getApiName();
         
         logger.info(String.format("Set API name to %s", name));
-        
+
+        ErrorPageErrorHandler errorHandler = new ErrorPageErrorHandler();
         setupAuthentication(environment);
         configureClientFilter(environment);
+        environment.getApplicationContext().setErrorHandler(errorHandler);
     }
     
     private GuiceBundle createGuiceBundle(Class<ApiConfiguration> configurationClass, Module module)
@@ -88,6 +90,7 @@ public class ApiApplication extends Application<ApiConfiguration>
         
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+
     }
     
     private void configureClientFilter(Environment environment)
@@ -101,6 +104,9 @@ public class ApiApplication extends Application<ApiConfiguration>
     
     public static void main(String[] args) throws Exception
     {
+        if (args.length == 0){
+            args = new String[] {"server", "configuration.yml"};
+        }
         new ApiApplication().run(args);
     }
 }

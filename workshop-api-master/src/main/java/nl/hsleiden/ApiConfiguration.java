@@ -18,6 +18,7 @@ public class ApiConfiguration extends Configuration implements AssetsBundleConfi
     @JsonProperty
     private String apiName;
 
+
     @Valid
     @NotNull
     @JsonProperty

@@ -7,16 +7,20 @@
 package nl.hsleiden;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 
 /**
  *
  * @author Peter van Vliet
  */
-public class ApiGuiceModule extends AbstractModule
-{
+public class ApiGuiceModule extends AbstractModule {
+
+
+
     @Override
     protected void configure()
     {
         
     }
+
 }

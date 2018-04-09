@@ -10,8 +10,16 @@ public class Follower {
     @JsonView(View.Public.class)
     int totalFollowers;
 
+    @NotEmpty
+    @JsonView(View.Public.class)
+    int day;
+
+
+
     public Follower() {
     }
+
+
 
 
     public int getTotalFollowers() {

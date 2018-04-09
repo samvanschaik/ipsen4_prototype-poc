@@ -18,7 +18,7 @@ import java.util.Collection;
 
 
 @Singleton
-@Path("/users")
+@Path("/followers")
 @Produces(MediaType.APPLICATION_JSON)
 public class FollowerResource {
 

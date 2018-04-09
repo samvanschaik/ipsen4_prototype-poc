@@ -48,14 +48,14 @@ public class UserResource
         return service.getAll();
     }
     
-//    @GET
-//    @Path("/{id}")
-//    @JsonView(View.Public.class)
-//    @RolesAllowed("GUEST")
-//    public User retrieve(@PathParam("id") int id)
-//    {
-//        return service.get(id);
-//    }
+    @GET
+    @Path("/{id}")
+    @JsonView(View.Public.class)
+    @RolesAllowed("GUEST")
+    public User retrieve(@PathParam("id") int id)
+    {
+        return service.get(id);
+    }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

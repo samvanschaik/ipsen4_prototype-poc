@@ -1,0 +1,13 @@
+
+<mat-card class="paper-card mat-elevation-z8">
+  <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()">
+    <h3>LOGIN:</h3>
+    <mat-form-field class="form-full-width">
+      <input matInput name="name" type="name" placeholder="Name" [(ngModel)]="user.name" #name="ngModel">
+    </mat-form-field>
+    <mat-form-field class="form-full-width">
+      <input matInput name="password" type="password" placeholder="Password" [(ngModel)]="user.password" #password="ngModel">
+    </mat-form-field>
+    <button mat-button color="primary" type="submit" class="btn-login">LOGIN</button>
+  </form>
+</mat-card>

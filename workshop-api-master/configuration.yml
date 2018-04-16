@@ -11,3 +11,10 @@ server:
   applicationConnectors:
     - type: http
       port: 8080
+
+mongoDB:
+    user: ${MONGO_USER}
+    pass: ${MONGO_PASS}
+    hosts: ${MONGO_HOSTS}
+    dbName: ${MONGO_DBNAME}
+    options: ${MONGO_OPTIONS}

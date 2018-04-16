@@ -8,6 +8,8 @@ package nl.hsleiden;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.name.Named;
+import nl.hsleiden.mongoDatabase.MongoFactory;
 
 /**
  *
@@ -20,7 +22,12 @@ public class ApiGuiceModule extends AbstractModule {
     @Override
     protected void configure()
     {
-        
+    }
+
+    @Provides
+    @Named("mongoFactory")
+    public MongoFactory provideMongoFactory(ApiConfiguration configuration) {
+        return configuration.getMongoFactory();
     }
 
 }

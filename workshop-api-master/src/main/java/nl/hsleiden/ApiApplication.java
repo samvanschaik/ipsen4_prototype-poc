@@ -1,7 +1,6 @@
 
 package nl.hsleiden;
 
-import com.google.inject.Module;
 import com.hubspot.dropwizard.guice.GuiceBundle.Builder;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
@@ -14,8 +13,9 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
-import nl.hsleiden.model.Follower;
+
 import nl.hsleiden.model.User;
+import nl.hsleiden.mongoDatabase.MongoModule;
 import nl.hsleiden.service.AuthenticationService;
 import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
@@ -44,7 +44,11 @@ public class ApiApplication extends Application<ApiConfiguration>
     public void initialize(Bootstrap<ApiConfiguration> bootstrap)
     {
         assetsBundle = (ConfiguredBundle) new ConfiguredAssetsBundle("/assets/", "/client", "index.html");
-        guiceBundle = createGuiceBundle(ApiConfiguration.class, new ApiGuiceModule());
+        guiceBundle = GuiceBundle.<ApiConfiguration> newBuilder()
+                .addModule(new MongoModule())
+                .enableAutoConfig("nl.hsleiden")
+                .setConfigClass(ApiConfiguration.class)
+                .build();
         
         bootstrap.addBundle(assetsBundle);
         bootstrap.addBundle(guiceBundle);
@@ -64,10 +68,11 @@ public class ApiApplication extends Application<ApiConfiguration>
         environment.getApplicationContext().setErrorHandler(errorHandler);
     }
     
-    private GuiceBundle createGuiceBundle(Class<ApiConfiguration> configurationClass, Module module)
+    private GuiceBundle createGuiceBundle(Class<ApiConfiguration> configurationClass)
     {
+
         Builder guiceBuilder = GuiceBundle.<ApiConfiguration>newBuilder()
-                .addModule(module)
+                .addModule(new MongoModule())
                 .enableAutoConfig(new String[] { "nl.hsleiden" })
                 .setConfigClass(configurationClass);
 
@@ -78,7 +83,7 @@ public class ApiApplication extends Application<ApiConfiguration>
     {
         AuthenticationService authenticationService = guiceBundle.getInjector().getInstance(AuthenticationService.class);
         ApiUnauthorizedHandler unauthorizedHandler = guiceBundle.getInjector().getInstance(ApiUnauthorizedHandler.class);
-        
+
         environment.jersey().register(new AuthDynamicFeature(
             new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(authenticationService)
@@ -87,7 +92,7 @@ public class ApiApplication extends Application<ApiConfiguration>
                 .setUnauthorizedHandler(unauthorizedHandler)
                 .buildAuthFilter())
         );
-        
+
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 

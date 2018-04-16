@@ -6,6 +6,8 @@ import io.dropwizard.bundles.assets.AssetsBundleConfiguration;
 import io.dropwizard.bundles.assets.AssetsConfiguration;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import nl.hsleiden.mongoDatabase.MongoFactory;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -17,6 +19,18 @@ public class ApiConfiguration extends Configuration implements AssetsBundleConfi
     @NotEmpty
     @JsonProperty
     private String apiName;
+
+    private MongoFactory mongoFactory = new MongoFactory();
+
+    @JsonProperty("mongoDB")
+    public MongoFactory getMongoFactory() {
+        return this.mongoFactory;
+    }
+
+    @JsonProperty("mongoDB")
+    public void setMongoFactory(MongoFactory mongoFactory) {
+        this.mongoFactory = mongoFactory;
+    }
 
 
     @Valid

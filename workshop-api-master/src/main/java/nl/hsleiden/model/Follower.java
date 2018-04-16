@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import nl.hsleiden.View;
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 public class Follower {
 
     @NotEmpty

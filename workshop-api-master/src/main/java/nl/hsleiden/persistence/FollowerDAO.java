@@ -6,10 +6,6 @@ import java.util.Optional;
 import javax.inject.Singleton;
 import nl.hsleiden.model.Follower;
 
-/**
- *
- * @author Peter van Vliet
- */
 @Singleton
 public class FollowerDAO //Dit is een DAO
 {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Follower_model} from './Follower_model';
+import {Follower_model} from '../models/Follower_model';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import {ApiService} from "../shared/api.service";
+import {ApiService} from "../../../shared/api.service";
 
 @Injectable()
 export class FollowersService {

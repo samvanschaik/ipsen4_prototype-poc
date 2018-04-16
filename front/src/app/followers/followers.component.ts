@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FollowersService} from "../followers.service";
-import {Follower_model} from "../Follower_model";
+import {FollowersService} from "../shared/services/followers.service";
+import {Follower_model} from "../shared/models/Follower_model";
 import {log} from "util";
 
 @Component({

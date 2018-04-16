@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {ApiService} from "../shared/api.service";
-import {User} from "./User.model";
+import {ApiService} from "../../../shared/api.service";
+import {User} from "../models/User.model";
 import {Observable} from "rxjs/Observable";
 import {Router} from "@angular/router";
 import {LoginService} from "./login.service";

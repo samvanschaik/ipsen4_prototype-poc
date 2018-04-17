@@ -63,7 +63,6 @@ public class ApiApplication extends Application<ApiConfiguration>
         logger.info(String.format("Set API name to %s", name));
 
         ErrorPageErrorHandler errorHandler = new ErrorPageErrorHandler();
-        setupAuthentication(environment);
         configureClientFilter(environment);
         environment.getApplicationContext().setErrorHandler(errorHandler);
     }

@@ -65,16 +65,6 @@ public class UserResource
         service.add(user);
     }
     
-    @PUT
-    @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @JsonView(View.Protected.class)
-    @RolesAllowed("GUEST")
-    public void update(@PathParam("id") int id, @Auth User authenticator, User user)
-    {
-        service.update(authenticator, id, user);
-    }
-    
     @DELETE
     @Path("/{id}")
     @RolesAllowed("ADMIN")
